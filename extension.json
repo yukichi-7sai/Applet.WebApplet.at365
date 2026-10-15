@@ -1,0 +1,314 @@
+{
+  "apiVersion": 1,
+  "id": "at365.web-applet",
+  "name": "Applet.WebApplet.at365",
+  "displayName": "WebApplet",
+  "version": "0.2.0",
+  "minimumHostVersion": "0.45.0",
+  "description": "サイトを登録し、共有ログイン枠を使って本体ページや別ウィンドウに表示します。",
+  "runtime": "node",
+  "entry": "index.cjs",
+  "capabilities": [
+    "pages",
+    "dynamic-pages",
+    "settings",
+    "web-profiles",
+    "images"
+  ],
+  "commands": [
+    {
+      "id": "at365.web-applet.manage",
+      "title": "WebAppletを管理",
+      "activateOnExecute": true
+    }
+  ],
+  "pages": [
+    {
+      "id": "manage",
+      "title": "WebApplet",
+      "source": "local",
+      "ui": "web/index.html",
+      "openCommand": "at365.web-applet.manage",
+      "defaultDisplay": "page"
+    }
+  ],
+  "pageActions": [
+    {
+      "id": "discover",
+      "parameters": {
+        "url": "string"
+      }
+    }
+  ],
+  "settings": [
+    {
+      "key": "items",
+      "title": "登録サイト",
+      "type": "object-list",
+      "default": [],
+      "fields": [
+        {
+          "key": "id",
+          "title": "ID",
+          "type": "string"
+        },
+        {
+          "key": "name",
+          "title": "名前",
+          "type": "string",
+          "default": "新しいWebApplet"
+        },
+        {
+          "key": "url",
+          "title": "開始URL",
+          "type": "string",
+          "default": "https://example.com/",
+          "format": "url"
+        },
+        {
+          "key": "enabled",
+          "title": "有効",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "key": "accountId",
+          "title": "Webアカウント",
+          "type": "select",
+          "options": [],
+          "optionSource": "web-profiles"
+        },
+        {
+          "key": "display",
+          "title": "表示先",
+          "type": "select",
+          "options": [
+            {
+              "value": "page",
+              "label": "本体ページ"
+            },
+            {
+              "value": "window",
+              "label": "別ウィンドウ"
+            }
+          ],
+          "default": "page"
+        },
+        {
+          "key": "navigation",
+          "title": "ページ遷移",
+          "type": "select",
+          "options": [
+            {
+              "value": "none",
+              "label": "開始ページに固定"
+            },
+            {
+              "value": "same-origin",
+              "label": "同じorigin"
+            },
+            {
+              "value": "any",
+              "label": "HTTP(S)"
+            }
+          ],
+          "default": "same-origin"
+        },
+        {
+          "key": "allowedOrigins",
+          "title": "追加許可origin",
+          "type": "string-list",
+          "default": []
+        }
+      ],
+      "itemTitle": "サイト",
+      "list": {
+        "columns": [
+          "name",
+          "display"
+        ],
+        "titleKey": "name",
+        "descriptionKey": "url",
+        "enabledKey": "enabled",
+        "idKey": "id",
+        "iconKey": "icon",
+        "confirmDelete": true
+      }
+    },
+    {
+      "default": [
+        {
+          "enabled": true,
+          "when": {
+            "scope": "owner",
+            "appletIds": []
+          },
+          "key": "F5",
+          "command": "reload"
+        },
+        {
+          "enabled": true,
+          "when": {
+            "scope": "owner",
+            "appletIds": []
+          },
+          "key": "Alt+Left",
+          "command": "back"
+        },
+        {
+          "enabled": true,
+          "when": {
+            "scope": "owner",
+            "appletIds": []
+          },
+          "key": "Alt+Right",
+          "command": "forward"
+        }
+      ],
+      "title": "初期ショートカット",
+      "fields": [
+        {
+          "key": "command",
+          "title": "操作",
+          "type": "select",
+          "default": "open",
+          "options": [
+            {
+              "value": "reload",
+              "label": "再読み込み"
+            },
+            {
+              "value": "back",
+              "label": "戻る"
+            },
+            {
+              "value": "forward",
+              "label": "進む"
+            },
+            {
+              "value": "open",
+              "label": "開く"
+            },
+            {
+              "value": "home",
+              "label": "開始ページ"
+            }
+          ]
+        },
+        {
+          "key": "key",
+          "title": "キー",
+          "type": "string",
+          "default": "Ctrl+F5"
+        },
+        {
+          "key": "enabled",
+          "title": "有効",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "key": "scope",
+          "title": "条件",
+          "type": "select",
+          "propertyPath": [
+            "when",
+            "scope"
+          ],
+          "default": "owner",
+          "options": [
+            {
+              "value": "owner",
+              "label": "このページ"
+            },
+            {
+              "value": "pages",
+              "label": "すべてのページ"
+            },
+            {
+              "value": "app",
+              "label": "AppDock全体"
+            },
+            {
+              "value": "global",
+              "label": "グローバル"
+            },
+            {
+              "value": "applets",
+              "label": "指定したページ"
+            }
+          ]
+        },
+        {
+          "key": "appletIds",
+          "title": "対象ページのID",
+          "type": "string-list",
+          "propertyPath": [
+            "when",
+            "appletIds"
+          ],
+          "default": []
+        }
+      ],
+      "type": "object-list",
+      "key": "shortcutDefaults",
+      "itemTitle": "割り当て",
+      "list": {
+        "columns": [
+          "command",
+          "key",
+          "scope"
+        ],
+        "titleKey": "command",
+        "enabledKey": "enabled"
+      },
+      "description": "今後追加するサイトへ適用します。既存の割り当ては変更しません。"
+    }
+  ],
+  "settingActions": [
+    {
+      "title": "管理画面を開く",
+      "command": "at365.web-applet.manage",
+      "description": "サイトの追加・削除、推奨設定、アイコン、アカウントと初期ショートカットを管理します。"
+    }
+  ],
+  "pageCollections": [
+    {
+      "key": "items",
+      "source": "remote",
+      "managementCommand": "at365.web-applet.manage",
+      "shortcutDefaultsKey": "shortcutDefaults",
+      "automation": [
+        "open",
+        "back",
+        "forward",
+        "reload",
+        "home"
+      ],
+      "fields": [
+        {
+          "key": "name",
+          "title": "名前",
+          "type": "string",
+          "automation": true
+        },
+        {
+          "key": "display",
+          "title": "表示先",
+          "type": "select",
+          "automation": true,
+          "options": [
+            {
+              "value": "page",
+              "label": "本体ページ"
+            },
+            {
+              "value": "window",
+              "label": "別ウィンドウ"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
