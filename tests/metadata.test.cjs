@@ -1,8 +1,9 @@
+const { getPublishDirectory } = require('../../AppDock.at365/scripts/publish-paths.cjs');
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const {
   manifestDefaults,
-} = require("../publish/extensions/at365.web-applet/metadata.cjs");
+} = require(require("node:path").join(getPublishDirectory(require("node:path").resolve(__dirname, "..")), "extensions/at365.web-applet/metadata.cjs"));
 const account = { id: "account.fixture" };
 const item = { url: "https://app.example.com/start" };
 test("Remote manifest defaults cannot set account, commands, arbitrary permissions or broaden origins", () => {

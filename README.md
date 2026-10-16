@@ -2,7 +2,7 @@
 
 AppDockへWebサイトを登録し、リボンのページまたは独立ウィンドウで表示するAppletです。AppDock 0.45.0以上が必要です。AppletはNode/HTMLで動作し、.NETや追加のNodeインストールは不要です。
 
-publish/extensions/at365.web-appletをAppDockのextensionsへコピーし、Applet一覧で有効にします。「WebAppletを管理」からサイト、Webアカウント、新規サイトの初期ショートカットを編集できます。追加・編集はダイアログのOKで保存し、反映に本体の再起動は不要です。
+A:/40.ARTIFACT/Applet.WebApplet.at365/extensions/at365.web-appletをAppDockのextensionsへコピーし、Applet一覧で有効にします。「WebAppletを管理」からサイト、Webアカウント、新規サイトの初期ショートカットを編集できます。追加・編集はダイアログのOKで保存し、反映に本体の再起動は不要です。
 
 同じアカウント枠を選んだサイトはログイン情報を共有します。Gmail等の別Appletの枠とは分離します。使用中の枠は削除できません。クリア・削除は警告確認後に実行します。サイトによってはElectron内でログインできない場合があります。
 

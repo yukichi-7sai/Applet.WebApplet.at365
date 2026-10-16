@@ -1,3 +1,4 @@
+const { getPublishDirectory } = require('../../AppDock.at365/scripts/publish-paths.cjs');
 const fs = require("node:fs");
 const path = require("node:path");
 const root = path.resolve(__dirname, "..");
@@ -18,7 +19,7 @@ const result = require("node:child_process").spawnSync(
 );
 if (result.error) throw result.error;
 if (result.status !== 0) process.exit(result.status || 1);
-const destination = path.join(root, "publish/extensions/at365.web-applet");
+const destination = path.join(getPublishDirectory(root), "extensions/at365.web-applet");
 fs.mkdirSync(path.join(destination, "web"), { recursive: true });
 fs.writeFileSync(
   path.join(destination, "index.cjs"),

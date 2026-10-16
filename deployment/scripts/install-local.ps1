@@ -15,10 +15,8 @@ if (-not (Test-Path -LiteralPath (Join-Path $taskHostDirectory 'AppDock.at365.ex
     throw '配置先にAppDock.at365.exeがありません。引数またはdeploy.local.txtを確認してください。'
 }
 
-& (Join-Path $taskRoot 'publish.bat')
-if ($LASTEXITCODE -ne 0) { throw "publish.batが失敗しました (exit $LASTEXITCODE)。配置は行いません。" }
 
-$taskSource = Join-Path $taskRoot 'publish\extensions\at365.web-applet'
+$taskSource = Join-Path $taskRoot 'extensions\at365.web-applet'
 $taskTarget = Join-Path $taskHostDirectory 'extensions\at365.web-applet'
 $taskManifest = Get-Content -LiteralPath (Join-Path $taskSource 'extension.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 if ($taskManifest.id -ne 'at365.web-applet') { throw '発行物のApplet IDが一致しません。' }

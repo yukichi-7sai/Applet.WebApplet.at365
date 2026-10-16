@@ -1,8 +1,9 @@
+const { getPublishDirectory } = require('../../AppDock.at365/scripts/publish-paths.cjs');
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const {
   onPageAction,
-} = require("../publish/extensions/at365.web-applet/index.cjs");
+} = require(require("node:path").join(getPublishDirectory(require("node:path").resolve(__dirname, "..")), "extensions/at365.web-applet/index.cjs"));
 test("discovery uses anonymous bounded same-origin requests and validates redirects", async (t) => {
   const original = global.fetch;
   t.after(() => {
