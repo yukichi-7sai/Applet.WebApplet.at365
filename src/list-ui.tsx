@@ -2,7 +2,7 @@ import { createRoot, type Root } from "react-dom/client";
 import {
   SettingsListTable,
   ListIcon,
-} from "../../AppDock.at365/src/shared/settings-ui/SettingsListTable";
+} from "../../AppDock.at365/src/renderer/settings-ui/SettingsListTable";
 import type { SettingDefinition } from "../../AppDock.at365/src/shared/contracts";
 import manifest from "../extension.json";
 const roots = new Map<string, Root>();

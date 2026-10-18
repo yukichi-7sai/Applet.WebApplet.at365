@@ -1,5 +1,23 @@
 # 検証記録
 
+## 2026-10-19: GitHub更新元変更のコミット確認
+
+- 型検査/build・標準2/2・固定EXEの更新元GUIと一覧GUI7群を再利用。配置fixture6ケースを今回追加し成功。
+- 実装時の全追跡入力（検証文書を除く）・成功ログ・配布ファイル・共通GUI結果とスクリプト・本体treeをSHA256/IDで再照合し一致。製品追加修正・再発行なし。レビューで新たな指摘なし。保存済み設定と実利用先は保持。
+- `.artifacts/commit-validation-github-account-20261019/`へ再利用根拠・追加試験のログ・stage/commit treeを記録。今回対象だけをコミットし、その後、本体と合わせて登録済みGitHub/AQUAへの通常pushと先端一致を確認する。過去/今回の再利用資料と未確認状態のテスト資料は保持し削除0件。Release・実利用先deployなし。
+
+## 2026-10-19: GitHub更新元の新アカウント対応（0.2.1）
+
+- 開始時main／clean、現在のorigin/mainからpull --ff-only成功（Already up to date）。更新元を`yukichi-7sai/Applet.WebApplet.at365`へ統一。updateRepository未登録を追加。Git remoteは既に新アカウントを指しておりpull成功。初回発行で旧shared/settings-uiへのimportが失敗したため、既存renderer/settings-ui/SettingsListTableへ1行修正し再レビュー・再発行成功。単体2/2と、最終発行物の管理画面／本体設定の一覧・ダイアログ・保存／競合・並べ替え等7群のGUI成功。
+
+- 発行前レビューは指摘なし。設定項目・保存ファイル・公開APIの追加削除なしのためパッチ更新。保存済みupdateSourceは変更・移行せず、既定復帰で新しいmanifestの更新元へ戻す。既存publish.batで自身の40.ARTIFACT配下へ発行成功。ZIP/feed/同梱manifestのID・版・size・SHA256・runtimeの存在が一致。
+
+- 最終AppDock 0.62.4 EXE（SHA256 043d72acd4f4176d0417bbc4166a111cecc5aaa7e8740baf21b8d6647b0e85ab）と最終Applet一式を隔離コピー。全6Appletを停止した状態で、保存済み旧指定の保持、新しい既定値の説明、版表示、「既定に戻す」後の画面／メモリ／settings.jsonの一致、停止状態維持を各Appletで確認。正常終了0。
+
+- 証跡: `.artifacts/github-account-20261019/validation.json`。共通GUI/画像: `../AppDock.at365/.artifacts/applet-github-account-20261019/profile-1792345747763/`。入力hashは前後一致、hostはb27bd046b704e1a27ad31fdc2f481f80ea086b31。変更と無関係な全回帰・実アカウント・実Google受信・実GitHub Release取得・各機能の実Windows効果は未実施。今回と過去の成功/失敗・再利用資料を保持し削除0件。
+
+- 本体のGitHub参照修正は先にb27bd04へコミット済み。今回のApplet変更は未コミット。push・Release・実利用先deployなし。
+
 ## 2026-10-15: 初回コミット前確認
 
 実装時の21入力ファイル、Node/HTMLの配布8資産、ホストの発行EXEを照合して一致。型検査/ビルド・Applet単体2件・配置6件・一覧5群/Web動作4群/動的4群の成功結果を再利用。本体は不足していた標準回帰416件を追加し、再利用と合わせて484/484成功した。製品ソースを変更せず、公開用remoteや更新元は未設定のまま初回コミットする。

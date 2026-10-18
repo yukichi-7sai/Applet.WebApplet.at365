@@ -10,7 +10,7 @@ src/index.tsは管理コマンドと制限付きメタデータ取得、src/meta
 
 AppDockのプロジェクトローカルNode/TypeScriptを使用します。AppDockフォルダーから `dev.bat exec node ../Applet.WebApplet.at365/scripts/build.cjs` で型検査とビルド、`dev.bat exec node --test ../Applet.WebApplet.at365/tests/*.test.cjs` で単体試験を行います。
 
-本repoのpublish.batでruntime資産とupdate.zip/update.jsonを生成します。配布時の.NET依存はありません。共通pack-applet-update.ps1が使う開発用パッケージツールはホスト側の.NET SDKでビルドされます。新規repoのため公開リポジトリ・自動更新元は未設定です。GitHub公開を行う工程で設定します。
+本repoのpublish.batでruntime資産とupdate.zip/update.jsonを生成します。配布時の.NET依存はありません。共通pack-applet-update.ps1が使う開発用パッケージツールはホスト側の.NET SDKでビルドされます。更新元はmanifestの`updateRepository: "yukichi-7sai/Applet.WebApplet.at365"`です。GitHub Releaseの公開は別工程です。
 
 GUI・保存済みID・固定EXE試験はホストのscripts/dynamic-pages-ui-test.cjs、web-list-ui-test.cjs、web-applets-portable-test.cjsを使用します。実利用データに接続しない隔離fixtureを用います。
 
