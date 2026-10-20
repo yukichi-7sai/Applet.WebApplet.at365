@@ -5,6 +5,13 @@ const dialog = $("#editor");
 let snapshot;
 let accounts = [];
 let editing = null;
+let pendingLibraryImage = null;
+function imageBase64(bytes) {
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 32768)
+    binary += String.fromCharCode(...bytes.slice(i, i + 32768));
+  return btoa(binary);
+}
 let editingRevision = 0;
 let editingItems = [];
 let working = false;
@@ -424,6 +431,7 @@ async function edit(item) {
       icon: "",
     },
   );
+  pendingLibraryImage = null;
   editingRevision = snapshot.revision;
   editingItems = structuredClone(snapshot.settings.items ?? []);
   $("#dialog-title").textContent = item ? "サイトを編集" : "サイトを追加";
@@ -441,7 +449,11 @@ async function edit(item) {
     form.elements.namedItem(key).value = editing[key];
   form.elements.namedItem("allowedOrigins").value =
     editing.allowedOrigins.join("\n");
-  $("#icon-preview").src = editing.icon || "";
+  $("#icon-preview").src = editing.image
+    ? (await api.call("registeredImages.preview", { image: editing.image })) ||
+      editing.icon ||
+      ""
+    : editing.icon || "";
   dialog.showModal();
 }
 async function discover() {
@@ -473,7 +485,8 @@ async function discover() {
       return;
     const previous = editing.imported ?? {};
     for (const key of ["name", "url", "navigation", "icon"]) {
-      if (result[key] === undefined) continue;
+      if (result[key] === undefined || (key === "icon" && editing.image))
+        continue;
       const current =
         key === "icon" ? editing.icon : form.elements.namedItem(key).value;
       if (current !== (key === "url" ? inputUrl : before[key])) continue;
@@ -487,7 +500,7 @@ async function discover() {
           current === "same-origin")
       ) {
         if (key === "icon") {
-          editing.icon = result.icon;
+          pendingLibraryImage = { base64: imageBase64(result.iconBytes) };
           $("#icon-preview").src = result.icon;
         } else form.elements.namedItem(key).value = result[key];
       }
@@ -511,19 +524,30 @@ $("#cancel").onclick = () => {
   dialog.close();
 };
 $("#discover").onclick = discover;
-$("#icon").onchange = async () => {
+$("#icon").onclick = async () => {
+  const original = editing;
+  $("#icon").disabled = true;
   try {
-    const file = $("#icon").files[0];
-    if (!file) return;
-    if (file.size > 4 * 1024 * 1024)
-      throw Error("画像は4MB以下にしてください。");
-    editing.icon = await api.call("images.normalize", {
-      bytes: [...new Uint8Array(await file.arrayBuffer())],
+    const result = await api.call("registeredImages.pick", {
+      current: editing.image ?? null,
     });
-    $("#icon-preview").src = editing.icon;
+    if (result.cancelled || editing !== original || !dialog.open) return;
+    editing.image = result.image;
+    pendingLibraryImage = null;
+    $("#icon-preview").src = result.image
+      ? (await api.call("registeredImages.preview", { image: result.image })) ||
+        ""
+      : editing.icon || "";
   } catch (error) {
     $("#form-error").textContent = String(error.message ?? error);
+  } finally {
+    $("#icon").disabled = false;
   }
+};
+$("#icon-clear").onclick = () => {
+  editing.image = null;
+  pendingLibraryImage = null;
+  $("#icon-preview").src = editing.icon || "";
 };
 form.onsubmit = async (event) => {
   event.preventDefault();
@@ -533,6 +557,11 @@ form.onsubmit = async (event) => {
   $("#form-error").textContent = "";
   try {
     const item = collect();
+    if (pendingLibraryImage)
+      item.image = await api.call(
+        "registeredImages.import",
+        pendingLibraryImage,
+      );
     const value = editingItems.some((row) => row.id === item.id)
       ? editingItems.map((row) => (row.id === item.id ? item : row))
       : [...editingItems, item];

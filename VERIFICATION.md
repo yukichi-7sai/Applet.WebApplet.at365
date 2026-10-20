@@ -1,5 +1,16 @@
 # 検証記録
 
+## 2026-10-20: コミット前確認（0.3.0）
+
+- 実装時と現在の製品・標準試験・共通部品/依存入力、成功ログと発行ZIP/feedをSHA256で照合し一致。標準2/2・型検査/buildと固定EXEの共通画像GUI8群を再利用した。本体の不足回帰538件とSDK影響先3Appletも成功し、本体標準は再利用込み692/692。
+- 製品追加修正・再発行なし。今回の追記は検証記録のみ。[コミット検証](../AppDock.at365/.artifacts/commit-validation-profile-image-library-20261020/validation.json)と同フォルダーのstage/commit照合を参照。push・Release・実利用deployは対象外。
+
+## 2026-10-20: 共通画像ライブラリー（0.3.0）
+
+- main/cleanを確認してpull --ff-onlyで最新確認後に実装。サイトのimageとlist.imageKey、最低ホスト0.69.0、registered-images capabilityを追加。管理ダイアログと本体設定から共通ライブラリーを使い、旧iconと保存済みID/参照を保持。設定追加のため0.2.1→0.3.0。
+- 発行前に本体の[レビュー](../AppDock.at365/.artifacts/profile-image-library-20261020/review.md)と影響を確認。標準2/2、型検査/Vite build、publish.batが成功。固定AppDock0.69.0の[GUI8群](../AppDock.at365/.artifacts/image-library-ui-1792449984611/result.json)でライブラリー選択、親の保存、同じViewの復帰、旧inline icon保持とボタン表示を確認した。設定の途中入力と登録原画像の保存を分離する。
+- update.zipは87625 bytes、SHA256 feeef163486bfeb9e02a8e6c8e2a164a6ceb60f688f77c7ed877ed149cac632c。ZIP全8ファイル/発行物、feedとmanifestのID/版/最低ホスト版/size/hashが一致。証跡: [共通検証](../AppDock.at365/.artifacts/profile-image-library-20261020/validation.json)。実利用データ・認証・実サイトへ接続せず、commit/push/Release/実利用deployなし。
+
 ## 2026-10-19: GitHub更新元変更のコミット確認
 
 - 型検査/build・標準2/2・固定EXEの更新元GUIと一覧GUI7群を再利用。配置fixture6ケースを今回追加し成功。

@@ -5,6 +5,21 @@ import {
 } from "../../AppDock.at365/src/renderer/settings-ui/SettingsListTable";
 import type { SettingDefinition } from "../../AppDock.at365/src/shared/contracts";
 import manifest from "../extension.json";
+import { RegisteredImagesProvider } from "../../AppDock.at365/src/renderer/settings-ui/RegisteredImagePicker";
+import type { ImageLibraryApi } from "../../AppDock.at365/src/shared/registered-images";
+const bridge = (window as any).appletPage;
+const images: ImageLibraryApi = {
+  snapshot: () => bridge.call("registeredImages.snapshot"),
+  preview: (image) => bridge.call("registeredImages.preview", { image }),
+  pick: (current) => bridge.call("registeredImages.pick", { current }),
+  register: async () => {
+    throw Error("画像の選択画面から登録してください。");
+  },
+  edit: async () => {
+    throw Error("グループは本体の画像ライブラリーで編集してください。");
+  },
+  onChanged: (callback) => bridge.onChanged(callback),
+};
 const roots = new Map<string, Root>();
 (window as any).renderSettingsList = (
   target: string,
@@ -21,26 +36,28 @@ const roots = new Map<string, Root>();
     (field) => field.key === key,
   ) as SettingDefinition;
   root.render(
-    <SettingsListTable
-      definition={definition}
-      entries={entries}
-      {...callbacks}
-      extra={
-        key === "items"
-          ? (entry, index) => (
-              <button
-                type="button"
-                className="settings-list-icon"
-                title="開く"
-                aria-label={`${entry.name}を開く`}
-                disabled={!entry.enabled}
-                onClick={() => callbacks.onOpen(index)}
-              >
-                <ListIcon kind="open" />
-              </button>
-            )
-          : undefined
-      }
-    />,
+    <RegisteredImagesProvider api={images}>
+      <SettingsListTable
+        definition={definition}
+        entries={entries}
+        {...callbacks}
+        extra={
+          key === "items"
+            ? (entry, index) => (
+                <button
+                  type="button"
+                  className="settings-list-icon"
+                  title="開く"
+                  aria-label={`${entry.name}を開く`}
+                  disabled={!entry.enabled}
+                  onClick={() => callbacks.onOpen(index)}
+                >
+                  <ListIcon kind="open" />
+                </button>
+              )
+            : undefined
+        }
+      />
+    </RegisteredImagesProvider>,
   );
 };

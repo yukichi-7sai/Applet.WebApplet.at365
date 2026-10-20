@@ -3,9 +3,9 @@
   "id": "at365.web-applet",
   "name": "Applet.WebApplet.at365",
   "displayName": "WebApplet",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "updateRepository": "yukichi-7sai/Applet.WebApplet.at365",
-  "minimumHostVersion": "0.45.0",
+  "minimumHostVersion": "0.69.0",
   "description": "サイトを登録し、共有ログイン枠を使って本体ページや別ウィンドウに表示します。",
   "runtime": "node",
   "entry": "index.cjs",
@@ -14,7 +14,8 @@
     "dynamic-pages",
     "settings",
     "web-profiles",
-    "images"
+    "images",
+    "registered-images"
   ],
   "commands": [
     {
@@ -120,6 +121,12 @@
           "title": "追加許可origin",
           "type": "string-list",
           "default": []
+        },
+        {
+          "key": "image",
+          "title": "アイコン画像",
+          "type": "registered-image",
+          "default": null
         }
       ],
       "itemTitle": "サイト",
@@ -133,7 +140,8 @@
         "enabledKey": "enabled",
         "idKey": "id",
         "iconKey": "icon",
-        "confirmDelete": true
+        "confirmDelete": true,
+        "imageKey": "image"
       }
     },
     {
@@ -308,6 +316,12 @@
               "label": "別ウィンドウ"
             }
           ]
+        },
+        {
+          "key": "image",
+          "title": "アイコン画像",
+          "type": "registered-image",
+          "default": null
         }
       ]
     }

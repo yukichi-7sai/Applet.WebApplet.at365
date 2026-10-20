@@ -76,12 +76,11 @@
           ></textarea>
         </label>
         <label>Webアカウント<select name="accountId" required></select></label>
-        <label
-          >アイコン<input
-            id="icon"
-            type="file"
-            accept="image/png,image/jpeg,image/webp" /></label
-        ><img id="icon-preview" width="32" height="32" alt="" />
+        <div><strong>アイコン</strong>
+          <button id="icon" type="button">ライブラリーから選択</button>
+          <button id="icon-clear" type="button">登録画像を外す</button>
+          <img id="icon-preview" width="32" height="32" alt="" />
+        </div>
         <p id="form-error" role="alert"></p>
         <footer>
           <button id="cancel" type="button">キャンセル</button

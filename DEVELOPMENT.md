@@ -14,8 +14,10 @@ AppDockのプロジェクトローカルNode/TypeScriptを使用します。AppD
 
 GUI・保存済みID・固定EXE試験はホストのscripts/dynamic-pages-ui-test.cjs、web-list-ui-test.cjs、web-applets-portable-test.cjsを使用します。実利用データに接続しない隔離fixtureを用います。
 
-ローカル配置は対象のAppDockを終了してから `A:\40.ARTIFACT\Applet.WebApplet.at365\deploy.bat "配置先フォルダー"` を実行します。引数を省略する場合は、発行先直下の `deploy.local.txt` の先頭行へAppDock.at365.exeがあるフォルダーの絶対パスをUTF-8で保存します。この端末専用ファイルはGit管理しません。配置先の本体は0.45.0以降が必要です。
+ローカル配置は対象のAppDockを終了してから `A:\40.ARTIFACT\Applet.WebApplet.at365\deploy.bat "配置先フォルダー"` を実行します。引数を省略する場合は、発行先直下の `deploy.local.txt` の先頭行へAppDock.at365.exeがあるフォルダーの絶対パスをUTF-8で保存します。この端末専用ファイルはGit管理しません。配置先の本体は0.69.0以降が必要です。
 
 deployは発行済みの成果物から、`A:/40.ARTIFACT/Applet.WebApplet.at365/extensions/at365.web-applet` を配置先の `extensions/at365.web-applet` へコピーし、各ファイルのSHA256を照合します。設定・data・他Appletは保持します。本体の更新・終了・起動は自動実行しません。配置後はAppDockを起動し直してください。
 
 一覧の列・初期値・ダイアログ項目はextension.jsonのobject-list/list/fieldsで宣言します。管理画面はsrc/list-ui.tsxからホスト共通SettingsListTableをViteで同梱し、設定画面は本体が自動生成します。共通契約は[一覧設定UI](../AppDock.at365/docs/settings-list-editing.md)を参照してください。
+
+共通画像のAPI・型・保存は[登録画像の契約](../AppDock.at365/docs/registered-images.md)を参照する。管理画面はregisteredImages.pick/preview/importを利用し、手動選択をメタデータで上書きしない。取得元bytesはOKでimportし、旧iconは保持する。固定EXEとの画像連携は本体のscripts/image-library-ui-test.cjsで確認する。
