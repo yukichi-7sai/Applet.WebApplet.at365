@@ -1,5 +1,7 @@
 # 開発
 
+機能の説明・操作方法・設定・既定値・動作環境は[機能・操作・設定](docs/usage.md)を参照してください。共通の文書構成は[ドキュメント方針](../AppDock.at365/docs/documentation.md)に従います。
+
 ## 発行・配置ファイルの保存先
 
 標準発行先は `A:\40.ARTIFACT\Applet.WebApplet.at365` です。`publish.bat`はソースrepo、`deploy.bat`は発行先から実行します。配置用ファイル・設定の保持とテンプレートの更新は[共通発行手順](../AppDock.at365/docs/publishing.md)を参照してください。
@@ -7,6 +9,8 @@
 共通契約は[Appletガイド](../AppDock.at365/docs/applet-development.md)、[API](../AppDock.at365/docs/extensions.md)、[動的ページ](../AppDock.at365/docs/dynamic-pages-webapplet-design.md)、[保存](../AppDock.at365/docs/settings-sync.md)、[開発手順](../AppDock.at365/docs/development-workflow.md)を参照します。
 
 src/index.tsは管理コマンドと制限付きメタデータ取得、src/metadata.tsは推奨JSONの検証、webは管理画面です。Host APIはページ・プロフィール・画像・自設定保存に限定します。サイトの許可やCookieをApplet側で直接操作しません。
+
+## ビルド・発行
 
 AppDockのプロジェクトローカルNode/TypeScriptを使用します。AppDockフォルダーから `dev.bat exec node ../Applet.WebApplet.at365/scripts/build.cjs` で型検査とビルド、`dev.bat exec node --test ../Applet.WebApplet.at365/tests/*.test.cjs` で単体試験を行います。
 
