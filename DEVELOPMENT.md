@@ -6,7 +6,7 @@
 
 標準発行先は `A:\40.ARTIFACT\Applet.WebApplet.at365` です。`publish.bat`はソースrepo、`deploy.bat`は発行先から実行します。配置用ファイル・設定の保持とテンプレートの更新は[共通発行手順](../AppDock.at365/docs/publishing.md)を参照してください。
 
-共通契約は[Appletガイド](../AppDock.at365/docs/applet-development.md)、[API](../AppDock.at365/docs/extensions.md)、[動的ページ](../AppDock.at365/docs/dynamic-pages-webapplet-design.md)、[保存](../AppDock.at365/docs/settings-sync.md)、[開発手順](../AppDock.at365/docs/development-workflow.md)を参照します。
+共通契約は[Appletガイド](../AppDock.at365/docs/applet-development.md)、[API](../AppDock.at365/docs/extensions.md)、[動的ページ](../AppDock.at365/docs/applet-pages.md)、[保存](../AppDock.at365/docs/settings-sync.md)、[開発手順](../AppDock.at365/docs/development-workflow.md)を参照します。
 
 src/index.tsは管理コマンドと制限付きメタデータ取得、src/metadata.tsは推奨JSONの検証、webは管理画面です。Host APIはページ・プロフィール・画像・自設定保存に限定します。サイトの許可やCookieをApplet側で直接操作しません。
 
@@ -25,3 +25,7 @@ deployは発行済みの成果物から、`A:/40.ARTIFACT/Applet.WebApplet.at365
 一覧の列・初期値・ダイアログ項目はextension.jsonのobject-list/list/fieldsで宣言します。管理画面はsrc/list-ui.tsxからホスト共通SettingsListTableをViteで同梱し、設定画面は本体が自動生成します。共通契約は[一覧設定UI](../AppDock.at365/docs/settings-list-editing.md)を参照してください。
 
 共通画像のAPI・型・保存は[登録画像の契約](../AppDock.at365/docs/registered-images.md)を参照する。管理画面はregisteredImages.pick/preview/importを利用し、手動選択をメタデータで上書きしない。取得元bytesはOKでimportし、旧iconは保持する。固定EXEとの画像連携は本体のscripts/image-library-ui-test.cjsで確認する。
+
+## 共通の運用
+
+文書構成・生成物・版更新・配布は[共通手順](../AppDock.at365/docs/development-workflow.md)、[文書方針](../AppDock.at365/docs/documentation.md)、[発行と配置](../AppDock.at365/docs/publishing.md)、[更新パッケージ](../AppDock.at365/docs/updates.md)、[生成物の整理](../AppDock.at365/DEVELOPMENT.md#作業完了時のテストフォルダー整理)を参照する。Applet固有の実行条件と結果は[検証記録](VERIFICATION.md)へ記載する。
