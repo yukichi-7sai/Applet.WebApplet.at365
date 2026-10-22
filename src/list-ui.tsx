@@ -8,10 +8,17 @@ import manifest from "../extension.json";
 import { RegisteredImagesProvider } from "../../AppDock.at365/src/renderer/settings-ui/RegisteredImagePicker";
 import type { ImageLibraryApi } from "../../AppDock.at365/src/shared/registered-images";
 const bridge = (window as any).appletPage;
+// The shared fields delegate selection to the host. Local gallery rendering is not exposed here.
+const hostGalleryOnly = async (): Promise<never> => {
+  throw Error("画像の表示とサイズ変更は本体の画像選択画面で操作してください。");
+};
 const images: ImageLibraryApi = {
   snapshot: () => bridge.call("registeredImages.snapshot"),
   preview: (image) => bridge.call("registeredImages.preview", { image }),
   pick: (current) => bridge.call("registeredImages.pick", { current }),
+  galleryImage: hostGalleryOnly,
+  galleryView: hostGalleryOnly,
+  saveGalleryWidth: hostGalleryOnly,
   register: async () => {
     throw Error("画像の選択画面から登録してください。");
   },

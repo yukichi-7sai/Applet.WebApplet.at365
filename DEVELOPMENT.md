@@ -26,6 +26,8 @@ deployは発行済みの成果物から、`A:/40.ARTIFACT/Applet.WebApplet.at365
 
 共通画像のAPI・型・保存は[登録画像の契約](../AppDock.at365/docs/registered-images.md)を参照する。管理画面はregisteredImages.pick/preview/importを利用し、手動選択をメタデータで上書きしない。取得元bytesはOKでimportし、旧iconは保持する。固定EXEとの画像連携は本体のscripts/image-library-ui-test.cjsで確認する。
 
+一覧の画像選択は本体の`registeredImages.pick`へ委譲する。共通ImageLibraryApiのgalleryImage/galleryView/saveGalleryWidthは、このAppletのページbridgeでは提供しないため明示的に拒否する。共通部品の型が増えた場合も、未公開のホスト操作や独自の保存・画像取得を追加せず、本体所有の選択画面を維持する。
+
 ## 共通の運用
 
 文書構成・生成物・版更新・配布は[共通手順](../AppDock.at365/docs/development-workflow.md)、[文書方針](../AppDock.at365/docs/documentation.md)、[発行と配置](../AppDock.at365/docs/publishing.md)、[更新パッケージ](../AppDock.at365/docs/updates.md)、[生成物の整理](../AppDock.at365/DEVELOPMENT.md#作業完了時のテストフォルダー整理)を参照する。Applet固有の実行条件と結果は[検証記録](VERIFICATION.md)へ記載する。

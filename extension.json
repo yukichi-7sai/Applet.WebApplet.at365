@@ -3,7 +3,7 @@
   "id": "at365.web-applet",
   "name": "Applet.WebApplet.at365",
   "displayName": "WebApplet",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "updateRepository": "yukichi-7sai/Applet.WebApplet.at365",
   "minimumHostVersion": "0.69.0",
   "description": "サイトを登録し、共有ログイン枠を使って本体ページや別ウィンドウに表示します。",
