@@ -1,11 +1,6 @@
-import type { NodeExtensionContext } from "../../AppDock.at365/src/main/node-worker";
 import { manifestDefaults } from "./metadata";
 
-export async function activate(context: NodeExtensionContext) {
-  context.commands.register("at365.web-applet.manage", "WebAppletを管理", () =>
-    context.pages.open("manage"),
-  );
-}
+export async function activate() {}
 
 function url(value: unknown) {
   if (
@@ -114,7 +109,7 @@ export async function onPageAction(
           bytes[0] === 255 &&
           bytes[1] === 216 &&
           bytes[2] === 255;
-        if (png || jpeg) result.iconBytes = [...bytes];
+        if (png || jpeg) result.imageBytes = [...bytes];
       } catch {
         /* Optional icon failure does not discard validated metadata. */
       }

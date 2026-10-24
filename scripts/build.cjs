@@ -1,17 +1,20 @@
-const { getPublishDirectory } = require('../../AppDock.at365/scripts/publish-paths.cjs');
-const fs = require("node:fs");
-const path = require("node:path");
-const root = path.resolve(__dirname, "..");
-const host = path.resolve(root, "../AppDock.at365");
+const fs = require("node:fs"),
+  path = require("node:path");
+const { spawnSync } = require("node:child_process");
+const {
+  getPublishDirectory,
+} = require("../../AppDock.at365/scripts/publish-paths.cjs");
+const root = path.resolve(__dirname, ".."),
+  host = path.resolve(root, "../AppDock.at365");
 const hostRequire = require("node:module").createRequire(
   path.join(host, "package.json"),
 );
-const packageFile = hostRequire.resolve("typescript/package.json");
-const compiler = require(packageFile);
-const result = require("node:child_process").spawnSync(
+const compilerFile = hostRequire.resolve("typescript/package.json"),
+  compiler = require(compilerFile);
+const result = spawnSync(
   process.execPath,
   [
-    path.resolve(path.dirname(packageFile), compiler.bin.tsc),
+    path.resolve(path.dirname(compilerFile), compiler.bin.tsc),
     "-p",
     path.join(root, "tsconfig.json"),
   ],
@@ -19,66 +22,57 @@ const result = require("node:child_process").spawnSync(
 );
 if (result.error) throw result.error;
 if (result.status !== 0) process.exit(result.status || 1);
-const destination = path.join(getPublishDirectory(root), "extensions/at365.web-applet");
-fs.mkdirSync(path.join(destination, "web"), { recursive: true });
+const destination = path.join(
+  getPublishDirectory(root),
+  "extensions/at365.web-applet",
+);
+fs.mkdirSync(path.join(destination, "licenses"), { recursive: true });
+const compiled = path.join(
+  root,
+  ".artifacts/compiled/Applet.WebApplet.at365/src",
+);
 fs.writeFileSync(
   path.join(destination, "index.cjs"),
   fs
-    .readFileSync(
-      path.join(
-        root,
-        ".artifacts/compiled/Applet.WebApplet.at365/src/index.js",
-      ),
-      "utf8",
-    )
+    .readFileSync(path.join(compiled, "index.js"), "utf8")
     .replace('require("./metadata")', 'require("./metadata.cjs")'),
 );
 fs.copyFileSync(
-  path.join(root, ".artifacts/compiled/Applet.WebApplet.at365/src/metadata.js"),
+  path.join(compiled, "metadata.js"),
   path.join(destination, "metadata.cjs"),
 );
 fs.copyFileSync(
   path.join(root, "extension.json"),
   path.join(destination, "extension.json"),
 );
-for (const file of ["index.html", "app.js", "style.css"])
-  fs.copyFileSync(
-    path.join(root, "web", file),
-    path.join(destination, "web", file),
-  );
+fs.copyFileSync(
+  path.join(root, "LICENSE"),
+  path.join(destination, "licenses/applet-webapplet.txt"),
+);
+// Only obsolete generated manager assets are removed; unknown files are retained.
+for (const relative of [
+  "web/index.html",
+  "web/app.js",
+  "web/style.css",
+  "web/lists.js",
+  "web/lists.css",
+  "licenses/fluid-functionalism.txt",
+]) {
+  const target = path.resolve(destination, relative);
+  if (!target.startsWith(path.resolve(destination) + path.sep))
+    throw Error("Invalid generated asset path");
+  for (
+    let current = path.dirname(target);
+    current.length >= destination.length;
+    current = path.dirname(current)
+  ) {
+    if (fs.existsSync(current) && fs.lstatSync(current).isSymbolicLink())
+      throw Error("Generated asset directory must not be a link");
+    if (current === destination) break;
+  }
+  if (fs.existsSync(target)) fs.unlinkSync(target);
+}
+const oldWeb = path.join(destination, "web");
+if (fs.existsSync(oldWeb) && fs.readdirSync(oldWeb).length === 0)
+  fs.rmdirSync(oldWeb);
 console.log(destination);
-(async () => {
-  const { pathToFileURL } = require("node:url");
-  const { build } = await import(
-    pathToFileURL(hostRequire.resolve("vite")).href
-  );
-  const { default: react } = await import(
-    pathToFileURL(hostRequire.resolve("@vitejs/plugin-react")).href
-  );
-  await build({
-    configFile: false,
-    root,
-    plugins: [react()],
-    define: { "process.env.NODE_ENV": '"production"' },
-    resolve: {
-      alias: {
-        "react-dom": path.join(host, "node_modules/react-dom"),
-        react: path.join(host, "node_modules/react"),
-      },
-    },
-    build: {
-      outDir: path.join(destination, "web"),
-      emptyOutDir: false,
-      lib: {
-        entry: path.join(root, "src/list-ui.tsx"),
-        name: "AppletLists",
-        formats: ["iife"],
-        fileName: () => "lists.js",
-        cssFileName: "lists",
-      },
-    },
-  });
-})().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});

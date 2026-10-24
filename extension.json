@@ -3,9 +3,9 @@
   "id": "at365.web-applet",
   "name": "Applet.WebApplet.at365",
   "displayName": "WebApplet",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "updateRepository": "yukichi-7sai/Applet.WebApplet.at365",
-  "minimumHostVersion": "0.69.0",
+  "minimumHostVersion": "0.86.5",
   "description": "サイトを登録し、共有ログイン枠を使って本体ページや別ウィンドウに表示します。",
   "runtime": "node",
   "entry": "index.cjs",
@@ -14,25 +14,7 @@
     "dynamic-pages",
     "settings",
     "web-profiles",
-    "images",
     "registered-images"
-  ],
-  "commands": [
-    {
-      "id": "at365.web-applet.manage",
-      "title": "WebAppletを管理",
-      "activateOnExecute": true
-    }
-  ],
-  "pages": [
-    {
-      "id": "manage",
-      "title": "WebApplet",
-      "source": "local",
-      "ui": "web/index.html",
-      "openCommand": "at365.web-applet.manage",
-      "defaultDisplay": "page"
-    }
   ],
   "pageActions": [
     {
@@ -131,17 +113,21 @@
       ],
       "itemTitle": "サイト",
       "list": {
-        "columns": [
-          "name",
-          "display"
-        ],
+        "columns": ["name", "display"],
         "titleKey": "name",
         "descriptionKey": "url",
         "enabledKey": "enabled",
         "idKey": "id",
         "iconKey": "icon",
         "confirmDelete": true,
-        "imageKey": "image"
+        "imageKey": "image",
+        "draftAction": {
+          "id": "discover",
+          "title": "Webの推奨設定を読み込む",
+          "inputKey": "url",
+          "fields": ["name", "url", "navigation"],
+          "historyKey": "imported"
+        }
       }
     },
     {
@@ -220,10 +206,7 @@
           "key": "scope",
           "title": "条件",
           "type": "select",
-          "propertyPath": [
-            "when",
-            "scope"
-          ],
+          "propertyPath": ["when", "scope"],
           "default": "owner",
           "options": [
             {
@@ -252,10 +235,7 @@
           "key": "appletIds",
           "title": "対象ページのID",
           "type": "string-list",
-          "propertyPath": [
-            "when",
-            "appletIds"
-          ],
+          "propertyPath": ["when", "appletIds"],
           "default": []
         }
       ],
@@ -263,37 +243,19 @@
       "key": "shortcutDefaults",
       "itemTitle": "割り当て",
       "list": {
-        "columns": [
-          "command",
-          "key",
-          "scope"
-        ],
+        "columns": ["command", "key", "scope"],
         "titleKey": "command",
         "enabledKey": "enabled"
       },
       "description": "今後追加するサイトへ適用します。既存の割り当ては変更しません。"
     }
   ],
-  "settingActions": [
-    {
-      "title": "管理画面を開く",
-      "command": "at365.web-applet.manage",
-      "description": "サイトの追加・削除、推奨設定、アイコン、アカウントと初期ショートカットを管理します。"
-    }
-  ],
   "pageCollections": [
     {
       "key": "items",
       "source": "remote",
-      "managementCommand": "at365.web-applet.manage",
       "shortcutDefaultsKey": "shortcutDefaults",
-      "automation": [
-        "open",
-        "back",
-        "forward",
-        "reload",
-        "home"
-      ],
+      "automation": ["open", "back", "forward", "reload", "home"],
       "fields": [
         {
           "key": "name",

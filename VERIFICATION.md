@@ -1,6 +1,15 @@
 # 検証記録
 
-対象の現行版は`0.3.1`。以下は記録した条件での検証結果であり、外部サービスや実機条件の現在の動作保証とは区別する。
+対象の現行版は`0.4.1`。以下は記録した条件での検証結果であり、外部サービスや実機条件の現在の動作保証とは区別する。
+
+## 2026-10-24: 管理を本体設定へ集約しmainへ移植 0.4.1
+
+- cleanなmain`ef4ecf7`をff-only取得して更新なし。元のcodex/fluid-ui `fb48e89`から、管理ページ・管理コマンド・settingActions/managementCommand・ローカルHTML/JS/CSSと一覧bundleを除去する機能差分だけを選択した。Fluidへの接続をmainへ取り込まず、Nodeコード・manifest・本AppletのMIT Licenseだけを配布する。元のcodex/fluid-ui refは保持する。
+- 登録サイト・初期ショートカットは本体の宣言型一覧で編集し、アカウントはWebアカウント設定で管理する。既存discoverをlist.draftActionから呼び、値とPNG/JPEG imageBytesを一時入力へ返す。手動入力・選択済み画像・旧iconを保ち、取消では設定/画像を保存せず、OKで登録する。設定・data・サイトID・名簿・Cookieの保存先や値を移行・削除しない。
+- 本体mainへ同時移植した基盤に合わせ、minimumHostVersionは0.86.5。既に試行側で発行した0.4.0から通常の追加修正として0.4.1へ進めた。buildは型検査後、既知の旧管理生成物だけを境界/リンク検査付きで除去し、未知ファイルを保持する。発行前レビューの未解決指摘なし。
+- 通常ユーザーの固定Node/pnpmでbuild・publish終了0、既存単体2/2が成功。本体標準874/874、ソースGUI17群と固定EXEの設定一覧5/推奨取得8/画像9群、smokeが成功した。画像ライブラリの旧URLを待っていた試験だけを現在の本体内表示へ接続し、同じ配布物で再実行成功。新規の見た目比較assertはない。実サービスや実入力の検証ではなく、隔離profile/loopbackを使う。
+- update.json/ZIP/runtime manifestは0.4.1・最低本体0.86.5で一致。`A:\40.ARTIFACT\Applet.WebApplet.at365\update.zip`は5,427 bytes / SHA256 `e68b02a0024dd60e562141ca3c1c8941266b4fa4a8525288635a3830b68416d6`。ZIPとruntime4ファイル・MIT License一致、旧web/lists資産・Fluidの複製が含まれないことを確認。本体EXE0.86.5はSHA256 `c5ff249d053754066906497cec33e95922e5de3d6310ee065c57297c0bf18ffc`。
+- 正本の証跡は本体`AppDock.at365/.artifacts/web-settings-port/`のbaseline/web-baseline/extraction/review、build/unit/source-gui/publish/fixed/fixed-remainingの各JSON・入力hash・log、package/verification.json、final-validation.json、cleanup-audit.json、commit-validation.jsonと本体VERIFICATION。開始時のGitHub main ef4ecf7/AQUA main 28476bcは祖先関係がある既存の差で、remoteへの操作はない。両mainへローカルコミットし、push・Release・実利用先deployは行わない。
 
 ## 2026-10-22: 共通画像UIの型更新に対応（0.3.1）
 
