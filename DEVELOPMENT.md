@@ -2,9 +2,9 @@
 
 機能の説明・操作方法・設定・既定値・動作環境は[機能・操作・設定](docs/usage.md)を参照してください。共通の文書構成は[ドキュメント方針](../AppDock.at365/docs/documentation.md)に従います。
 
-## 発行・配置ファイルの保存先
+## 発行先
 
-標準発行先は `A:\40.ARTIFACT\Applet.WebApplet.at365` です。`publish.bat`はソースrepo、`deploy.bat`は発行先から実行します。配置用ファイル・設定の保持とテンプレートの更新は[共通発行手順](../AppDock.at365/docs/publishing.md)を参照してください。
+標準発行先は `A:\40.ARTIFACT\Applet.WebApplet.at365` です。`publish.bat`はソースrepoから実行します。詳細は[共通発行手順](../AppDock.at365/docs/publishing.md)を参照してください。
 
 共通契約は[Appletガイド](../AppDock.at365/docs/applet-development.md)、[API](../AppDock.at365/docs/extensions.md)、[動的ページ](../AppDock.at365/docs/applet-pages.md)、[保存](../AppDock.at365/docs/settings-sync.md)、[開発手順](../AppDock.at365/docs/development-workflow.md)を参照します。
 
@@ -20,9 +20,9 @@ AppDockのプロジェクトローカルNode/TypeScriptを使用します。AppD
 
 GUI・保存済みID・固定EXE試験はホストのscripts/dynamic-pages-ui-test.cjs、web-list-ui-test.cjs、web-applets-portable-test.cjsを使用します。実利用データに接続しない隔離fixtureを用います。
 
-ローカル配置は対象のAppDockを終了してから `A:\40.ARTIFACT\Applet.WebApplet.at365\deploy.bat "配置先フォルダー"` を実行します。引数を省略する場合は、発行先直下の `deploy.local.txt` の先頭行へAppDock.at365.exeがあるフォルダーの絶対パスをUTF-8で保存します。この端末専用ファイルはGit管理しません。配置先の本体は0.86.5以降が必要です。
+配置先の本体は0.86.5以降が必要です。
 
-deployは発行済みの成果物から、`A:/40.ARTIFACT/Applet.WebApplet.at365/extensions/at365.web-applet` を配置先の `extensions/at365.web-applet` へコピーし、各ファイルのSHA256を照合します。設定・data・他Appletは保持します。本体の更新・終了・起動は自動実行しません。配置後はAppDockを起動し直してください。
+ローカル配置は対象のAppDockを完全終了し、`A:/40.ARTIFACT/Applet.WebApplet.at365/extensions/at365.web-applet`を配置先の`extensions/at365.web-applet`へコピーします。設定・data・他Appletは保持し、配置後はAppDockを起動し直してください。
 
 一覧の列・初期値・ダイアログ項目はextension.jsonのobject-list/list/fieldsで宣言します。`list.draftAction`が`discover`を参照し、ホスト設定から既存の`page.action` RPCを呼びます。`onPageAction`のpageIdは`settings:items`です。返す値はname/url/navigation、任意のmessageとPNG/JPEGのimageBytesで、ホストが宣言済みフィールドだけを一時入力へ適用します。共通契約は[一覧設定UI](../AppDock.at365/docs/settings-list-editing.md)を参照してください。
 
