@@ -20,15 +20,15 @@ AppDockのプロジェクトローカルNode/TypeScriptを使用します。AppD
 
 GUI・保存済みID・固定EXE試験はホストのscripts/dynamic-pages-ui-test.cjs、web-list-ui-test.cjs、web-applets-portable-test.cjsを使用します。実利用データに接続しない隔離fixtureを用います。
 
-配置先の本体は0.86.5以降が必要です。
+配置先の本体は0.170.0以降が必要です。
 
 ローカル配置は対象のAppDockを完全終了し、`A:/40.ARTIFACT/Applet.WebApplet.at365/extensions/at365.web-applet`を配置先の`extensions/at365.web-applet`へコピーします。設定・data・他Appletは保持し、配置後はAppDockを起動し直してください。
 
-一覧の列・初期値・ダイアログ項目はextension.jsonのobject-list/list/fieldsで宣言します。`list.draftAction`が`discover`を参照し、ホスト設定から既存の`page.action` RPCを呼びます。`onPageAction`のpageIdは`settings:items`です。返す値はname/url/navigation、任意のmessageとPNG/JPEGのimageBytesで、ホストが宣言済みフィールドだけを一時入力へ適用します。共通契約は[一覧設定UI](../AppDock.at365/docs/settings-list-editing.md)を参照してください。
+一覧の列・初期値・ダイアログ項目はextension.jsonのobject-list/list/fieldsで宣言します。`list.draftAction`が`discover`を参照し、ホスト設定から既存の`page.action` RPCを呼びます。`onPageAction`のpageIdは`settings:sites`です。返す値はname/url/navigation、任意のmessageとPNG/JPEGのimageBytesで、ホストが宣言済みフィールドだけを一時入力へ適用します。共通契約は[一覧設定UI](../AppDock.at365/docs/settings-list-editing.md)を参照してください。
 
 共通画像のAPI・型・保存は[登録画像の契約](../AppDock.at365/docs/registered-images.md)を参照します。取得元bytesは親ダイアログのOKでimportし、手動選択と旧iconを保持します。固定EXEとの画像連携は本体のscripts/web-applets-portable-test.cjsとscripts/image-library-ui-test.cjsで確認します。
 
-独自の画像画面やページbridgeは持たず、本体所有の画像選択を使います。設定・保存形式とサイトID、共有アカウント名簿、Cookieの保存先は変更しません。
+独自の画像画面やページbridgeは持たず、本体所有の画像選択を使います。`sites` と `siteShortcutDefaults` を宣言し、サイト別のログイン枠と回収は[本体の設定由来ページ](../AppDock.at365/docs/web-applets.md#保存と回収)に委譲します。
 
 ## 共通の運用
 

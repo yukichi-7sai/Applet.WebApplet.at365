@@ -5,17 +5,16 @@
   "displayName": "WebApplet",
   "icon": "globe",
   "tagline": "いつものサイトを、すぐそばに。",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "updateRepository": "yukichi-7sai/Applet.WebApplet.at365",
-  "minimumHostVersion": "0.86.5",
-  "description": "サイトを登録し、共有ログイン枠を使って本体ページや別ウィンドウに表示します。",
+  "minimumHostVersion": "0.170.0",
+  "description": "サイトを登録し、サイトごとのログイン枠で本体ページや別ウィンドウに表示します。",
   "runtime": "node",
   "entry": "index.cjs",
   "capabilities": [
     "pages",
     "dynamic-pages",
     "settings",
-    "web-profiles",
     "registered-images"
   ],
   "pageActions": [
@@ -28,7 +27,7 @@
   ],
   "settings": [
     {
-      "key": "items",
+      "key": "sites",
       "title": "登録サイト",
       "type": "object-list",
       "default": [],
@@ -56,13 +55,6 @@
           "title": "有効",
           "type": "boolean",
           "default": true
-        },
-        {
-          "key": "accountId",
-          "title": "Webアカウント",
-          "type": "select",
-          "options": [],
-          "optionSource": "web-profiles"
         },
         {
           "key": "display",
@@ -242,7 +234,7 @@
         }
       ],
       "type": "object-list",
-      "key": "shortcutDefaults",
+      "key": "siteShortcutDefaults",
       "itemTitle": "割り当て",
       "list": {
         "columns": ["command", "key", "scope"],
@@ -254,9 +246,9 @@
   ],
   "pageCollections": [
     {
-      "key": "items",
+      "key": "sites",
       "source": "remote",
-      "shortcutDefaultsKey": "shortcutDefaults",
+      "shortcutDefaultsKey": "siteShortcutDefaults",
       "automation": ["open", "back", "forward", "reload", "home"],
       "fields": [
         {
