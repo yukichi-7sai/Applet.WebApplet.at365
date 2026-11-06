@@ -1,5 +1,12 @@
 # 検証記録
 
+## 2026-11-07 main取り込み版AppDockへの対応（0.6.0）
+
+- 作業ブランチは取得した `main` と `origin/main` の `3dafcbb` を含んでいた。機能を含む統合後の本体に合わせて最低ホスト版を0.172.0に引き上げ、Appletを0.6.0へ更新した。
+- TypeScriptビルド、単体試験2件、統合後の固定EXEでのサイト登録、ログイン枠の分離、未導入時の回収が成功した。
+- 配布物は `A:/40.ARTIFACT/Applet.WebApplet.at365/worktrees/web-applet-site-accounts-main-0.172.0/`。6ファイルを発行元とSHA256照合した。更新ZIPは `bc7263caf2647716a5352dd2390ce3a5d2f78a2dcd9d06b37b88e62172200cec`。配布manifestとfeedの版・最低ホスト版を照合した。
+- 証跡は `.artifacts/main-sync-web-applet-site-accounts/`。
+
 ## 2026-11-07 サイトごとのログイン枠（0.5.0）
 
 - 発行前レビューで、登録一覧と初期ショートカットを新しい設定キーで開始し、枠の選択欄を廃止する宣言を確認した。設定項目の変更と最低ホスト版0.170.0への引き上げに伴うマイナー更新。

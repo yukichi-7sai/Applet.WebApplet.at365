@@ -20,7 +20,7 @@ AppDockのプロジェクトローカルNode/TypeScriptを使用します。AppD
 
 GUI・保存済みID・固定EXE試験はホストのscripts/dynamic-pages-ui-test.cjs、web-list-ui-test.cjs、web-applets-portable-test.cjsを使用します。実利用データに接続しない隔離fixtureを用います。
 
-配置先の本体は0.170.0以降が必要です。
+配置先の本体は0.172.0以降が必要です。
 
 ローカル配置は対象のAppDockを完全終了し、`A:/40.ARTIFACT/Applet.WebApplet.at365/extensions/at365.web-applet`を配置先の`extensions/at365.web-applet`へコピーします。設定・data・他Appletは保持し、配置後はAppDockを起動し直してください。
 
