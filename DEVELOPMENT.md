@@ -4,7 +4,7 @@
 
 ## 発行先
 
-標準発行先は `A:\40.ARTIFACT\Applet.WebApplet.at365` です。`publish.bat`はソースrepoから実行します。詳細は[共通発行手順](../AppDock.at365/docs/publishing.md)を参照してください。
+標準発行先は `.artifacts/publish` です。`publish.bat`はソースrepoから実行します。詳細は[共通発行手順](../AppDock.at365/docs/publishing.md)を参照してください。
 
 共通契約は[Appletガイド](../AppDock.at365/docs/applet-development.md)、[API](../AppDock.at365/docs/extensions.md)、[動的ページ](../AppDock.at365/docs/applet-pages.md)、[保存](../AppDock.at365/docs/settings-sync.md)、[開発手順](../AppDock.at365/docs/development-workflow.md)を参照します。
 
@@ -22,7 +22,7 @@ GUI・保存済みID・固定EXE試験はホストのscripts/dynamic-pages-ui-te
 
 配置先の本体は0.172.0以降が必要です。
 
-ローカル配置は対象のAppDockを完全終了し、`A:/40.ARTIFACT/Applet.WebApplet.at365/extensions/at365.web-applet`を配置先の`extensions/at365.web-applet`へコピーします。設定・data・他Appletは保持し、配置後はAppDockを起動し直してください。
+ローカル配置は対象のAppDockを完全終了し、`.artifacts/publish/extensions/at365.web-applet`を配置先の`extensions/at365.web-applet`へコピーします。設定・data・他Appletは保持し、配置後はAppDockを起動し直してください。
 
 一覧の列・初期値・ダイアログ項目はextension.jsonのobject-list/list/fieldsで宣言します。`list.draftAction`が`discover`を参照し、ホスト設定から既存の`page.action` RPCを呼びます。`onPageAction`のpageIdは`settings:sites`です。返す値はname/url/navigation、任意のmessageとPNG/JPEGのimageBytesで、ホストが宣言済みフィールドだけを一時入力へ適用します。共通契約は[一覧設定UI](../AppDock.at365/docs/settings-list-editing.md)を参照してください。
 

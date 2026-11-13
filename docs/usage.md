@@ -2,7 +2,7 @@
 
 AppDockへWebサイトを登録し、リボンのページまたは独立ウィンドウで表示するAppletです。AppDock 0.172.0以上が必要です。AppletはNodeで動作し、.NETや追加のNodeインストールは不要です。
 
-A:/40.ARTIFACT/Applet.WebApplet.at365/extensions/at365.web-appletをAppDockのextensionsへコピーし、Applet一覧で有効にします。設定画面の「WebApplet」からサイトと新規サイトの初期ショートカットを編集します。WebApplet自身の管理ページは持たず、登録したサイトだけをページとして表示します。追加・編集はダイアログのOKで保存し、反映に本体の再起動は不要です。
+.artifacts/publish/extensions/at365.web-appletをAppDockのextensionsへコピーし、Applet一覧で有効にします。設定画面の「WebApplet」からサイトと新規サイトの初期ショートカットを編集します。WebApplet自身の管理ページは持たず、登録したサイトだけをページとして表示します。追加・編集はダイアログのOKで保存し、反映に本体の再起動は不要です。
 
 サイトを登録すると、AppDockが登録ごとのログイン枠を管理します。同じURLを別々に登録した場合もログイン状態は分かれ、Gmailの枠からも分離されます。以前のサイト設定や共用枠からの移行はなく、サイトの登録とログインを新たに行います。
 

@@ -5,7 +5,7 @@
   "displayName": "WebApplet",
   "icon": "globe",
   "tagline": "いつものサイトを、すぐそばに。",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "updateRepository": "yukichi-7sai/Applet.WebApplet.at365",
   "minimumHostVersion": "0.172.0",
   "description": "サイトを登録し、サイトごとのログイン枠で本体ページや別ウィンドウに表示します。",

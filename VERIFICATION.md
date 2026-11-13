@@ -1,17 +1,32 @@
 # 検証記録
 
+## 2026-11-14 コミット前の照合
+
+- 実装完了時に記録した134入力ファイルのSHA256が一致し、別作業の変更と既存stageがないことを確認。
+- 実装時の標準/対象回帰・固定発行物の成功ログと入力を照合して再利用。実行時コード・依存・試験条件に後続変更なし。
+- 発行済み8 ZIPのSHA256も一致し、検証済み配布物を維持。ローカル設定はGit管理外。照合後の変更は本検証記録の追記だけで、製品の追加修正・版更新・再発行なし。
+- 判定・成功ログ・stage/commit treeの照合記録は`.artifacts/commit-validation-publish-paths-20261114/`へ保存。コミットは対象ファイルに限定し、push・Release・実利用先配置は行わない。
+
+## 2026-11-14 発行先のローカル設定と公開記録の整理
+
+- 環境固有の出力先をGit管理外`publish.local.json`へ分離。相対値は設定ファイル基準、未設定時は各repo内`.artifacts/publish`。worktree専用の出力名と既存の明示出力先指定を維持。
+- 公開するコード・文書・検証記録から環境固有の出力名を除去。以前の記録は論理パスへ置換し、元の記録を各repoの`.artifacts/publish-paths-private-20261114/original/`へ保存。Git履歴は変更していない。
+- 0.6.1を発行、終了0。既存単体2項目が発行物に対して成功。Nodeのビルド先とPowerShellのpack先を共通設定へ統一。update.json/ZIPの版・サイズ・SHA256と全4ファイルを照合。
+- 製品API・実行時設定・保存形式・依存の変更なし。必要な発行先/配布検査は本体の`.artifacts/publish-paths-private-20261114/`にも保存。commit/push/外部公開・実利用先配置は未実施。
+
+
 ## 2026-11-07 main取り込み版AppDockへの対応（0.6.0）
 
 - 作業ブランチは取得した `main` と `origin/main` の `3dafcbb` を含んでいた。機能を含む統合後の本体に合わせて最低ホスト版を0.172.0に引き上げ、Appletを0.6.0へ更新した。
 - TypeScriptビルド、単体試験2件、統合後の固定EXEでのサイト登録、ログイン枠の分離、未導入時の回収が成功した。
-- 配布物は `A:/40.ARTIFACT/Applet.WebApplet.at365/worktrees/web-applet-site-accounts-main-0.172.0/`。6ファイルを発行元とSHA256照合した。更新ZIPは `bc7263caf2647716a5352dd2390ce3a5d2f78a2dcd9d06b37b88e62172200cec`。配布manifestとfeedの版・最低ホスト版を照合した。
+- 配布物は `<PUBLISH_ROOT>/Applet.WebApplet.at365/worktrees/web-applet-site-accounts-main-0.172.0/`。6ファイルを発行元とSHA256照合した。更新ZIPは `bc7263caf2647716a5352dd2390ce3a5d2f78a2dcd9d06b37b88e62172200cec`。配布manifestとfeedの版・最低ホスト版を照合した。
 - 証跡は `.artifacts/main-sync-web-applet-site-accounts/`。
 
 ## 2026-11-07 サイトごとのログイン枠（0.5.0）
 
 - 発行前レビューで、登録一覧と初期ショートカットを新しい設定キーで開始し、枠の選択欄を廃止する宣言を確認した。設定項目の変更と最低ホスト版0.170.0への引き上げに伴うマイナー更新。
 - TypeScriptビルドと単体試験2件が成功。対応する固定EXEで、空の登録一覧から追加、推奨設定・画像の確定と取消、同一URLのCookie分離、再起動、削除、Applet未導入時の回収を確認した。実サイトのログインは対象外。
-- 配布物は `A:\40.ARTIFACT\Applet.WebApplet.at365\worktrees\web-applet-site-accounts`。6ファイルを発行元とSHA256照合した。更新ZIPのSHA256は `daeb12f79ddd619927a3988531af988bebbe23eb57ae0b09b486940eef7a57e1`。配布manifestの版・最低ホスト版をfeedと照合した。
+- 配布物は `<PUBLISH_ROOT>\Applet.WebApplet.at365\worktrees\web-applet-site-accounts`。6ファイルを発行元とSHA256照合した。更新ZIPのSHA256は `daeb12f79ddd619927a3988531af988bebbe23eb57ae0b09b486940eef7a57e1`。配布manifestの版・最低ホスト版をfeedと照合した。
 - ビルドと試験ログ、試験入力treeおよび最終treeは `.artifacts/commit-validation-web-applet-site-accounts/`。
 
 ## 2026-11-03 配置ツール整理のコミット前照合
@@ -21,7 +36,7 @@
 
 ## 2026-11-03 開発用配置スクリプトの除去
 
-- deployment一式と40.ARTIFACT内の配置用スクリプト・記入例・配置先設定を、存在する範囲で削除した。publishから専用コピー処理を外し、開発文書と不要なGit除外規則を整理した。配置専用のscripts/publish-deployment.ps1とtests/deploy.test.ps1も削除した。
+- deployment一式と<PUBLISH_ROOT>内の配置用スクリプト・記入例・配置先設定を、存在する範囲で削除した。publishから専用コピー処理を外し、開発文書と不要なGit除外規則を整理した。配置専用のscripts/publish-deployment.ps1とtests/deploy.test.ps1も削除した。
 - 差分レビューで既存のビルドと更新ZIP/JSON生成を保持していることを確認した。変更スクリプトの構文・現行の廃止ファイル参照・git diff --checkと、本体を含む全9repoの発行先計算を確認した。発行先の配置ツール以外のファイルは削除前後のSHA256が一致した。
 - 製品コード・manifest・依存・設定/保存仕様と配布payloadは変更していない。開発用配置ツールの整理として製品版更新・再ビルド・再発行なし。製品回帰・GUI・実利用先配置・commit・push・Releaseは実施していない。共通の削除一覧・ハッシュ・検証結果は../AppDock.at365/.artifacts/deploy-removal-20261103/を参照する。過去の検証記録は履歴として保持する。
 
@@ -48,7 +63,7 @@
 ## 2026-10-29: Applet情報のアイコンとキャッチコピー 0.4.2
 
 - main/追跡先とcleanを確認し、通常環境のpull --ff-only後に、manifestの任意表示情報 `icon: globe` と `tagline: いつものサイトを、すぐそばに。` を設定。設定・コマンド・保存・権限・最低本体版は変更せず、0.4.1→0.4.2のパッチ更新として関連する版の正本を揃えた。発行前にmetadataと版の差分をレビューし、阻害事項なし。
-- 標準publish.batで40.ARTIFACTへ発行。配置manifest/ZIP内manifest/feedのID・版・icon/tagline、ZIPのサイズ/SHA256を照合し成功。native/.NETはProductVersionも一致。本体0.101.6の固定EXEへ発行物をコピーし、停止状態で情報パネルの表示を確認した。通常のApplet起動や外部サービス・実入力は実行していない。
+- 標準publish.batで<PUBLISH_ROOT>へ発行。配置manifest/ZIP内manifest/feedのID・版・icon/tagline、ZIPのサイズ/SHA256を照合し成功。native/.NETはProductVersionも一致。本体0.101.6の固定EXEへ発行物をコピーし、停止状態で情報パネルの表示を確認した。通常のApplet起動や外部サービス・実入力は実行していない。
 - 共通の入力・完全ログ・配布照合は`../AppDock.at365/.artifacts/applet-branding-20261029/`、本体の`VERIFICATION.md`、本repoの`.artifacts/applet-branding-20261029/validation.json`を参照。機能別の標準全回帰は今回実行せず、表示情報と配布の影響に必要な範囲を検証した。既存の再利用資料を保持し、今回の整理による削除なし。コミット/プッシュ/Release/実利用deployは行っていない。
 
 ## 2026-10-24: 管理を本体設定へ集約しmainへ移植 0.4.1
@@ -57,7 +72,7 @@
 - 登録サイト・初期ショートカットは本体の宣言型一覧で編集し、アカウントはWebアカウント設定で管理する。既存discoverをlist.draftActionから呼び、値とPNG/JPEG imageBytesを一時入力へ返す。手動入力・選択済み画像・旧iconを保ち、取消では設定/画像を保存せず、OKで登録する。設定・data・サイトID・名簿・Cookieの保存先や値を移行・削除しない。
 - 本体mainへ同時移植した基盤に合わせ、minimumHostVersionは0.86.5。既に試行側で発行した0.4.0から通常の追加修正として0.4.1へ進めた。buildは型検査後、既知の旧管理生成物だけを境界/リンク検査付きで除去し、未知ファイルを保持する。発行前レビューの未解決指摘なし。
 - 通常ユーザーの固定Node/pnpmでbuild・publish終了0、既存単体2/2が成功。本体標準874/874、ソースGUI17群と固定EXEの設定一覧5/推奨取得8/画像9群、smokeが成功した。画像ライブラリの旧URLを待っていた試験だけを現在の本体内表示へ接続し、同じ配布物で再実行成功。新規の見た目比較assertはない。実サービスや実入力の検証ではなく、隔離profile/loopbackを使う。
-- update.json/ZIP/runtime manifestは0.4.1・最低本体0.86.5で一致。`A:\40.ARTIFACT\Applet.WebApplet.at365\update.zip`は5,427 bytes / SHA256 `e68b02a0024dd60e562141ca3c1c8941266b4fa4a8525288635a3830b68416d6`。ZIPとruntime4ファイル・MIT License一致、旧web/lists資産・Fluidの複製が含まれないことを確認。本体EXE0.86.5はSHA256 `c5ff249d053754066906497cec33e95922e5de3d6310ee065c57297c0bf18ffc`。
+- update.json/ZIP/runtime manifestは0.4.1・最低本体0.86.5で一致。`<PUBLISH_ROOT>\Applet.WebApplet.at365\update.zip`は5,427 bytes / SHA256 `e68b02a0024dd60e562141ca3c1c8941266b4fa4a8525288635a3830b68416d6`。ZIPとruntime4ファイル・MIT License一致、旧web/lists資産・Fluidの複製が含まれないことを確認。本体EXE0.86.5はSHA256 `c5ff249d053754066906497cec33e95922e5de3d6310ee065c57297c0bf18ffc`。
 - 正本の証跡は本体`AppDock.at365/.artifacts/web-settings-port/`のbaseline/web-baseline/extraction/review、build/unit/source-gui/publish/fixed/fixed-remainingの各JSON・入力hash・log、package/verification.json、final-validation.json、cleanup-audit.json、commit-validation.jsonと本体VERIFICATION。開始時のGitHub main ef4ecf7/AQUA main 28476bcは祖先関係がある既存の差で、remoteへの操作はない。両mainへローカルコミットし、push・Release・実利用先deployは行わない。
 
 ## 2026-10-22: 共通画像UIの型更新に対応（0.3.1）
