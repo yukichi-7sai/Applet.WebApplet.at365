@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "kind": "applet",
+  "id": "at365.web-applet",
+  "version": "0.6.1",
+  "minimumHostVersion": "0.172.0",
+  "release": {
+    "tag": "v0.6.1",
+    "publishedAt": "2026-11-16T22:31:47Z"
+  },
+  "payload": {
+    "file": "update.zip",
+    "sha256": "51af9d0c703b971532551dd40fbc3ff76196e135e10561df4bc4e4de52be8c35",
+    "size": 5426,
+    "format": "zip",
+    "url": "https://github.com/yukichi-7sai/Applet.WebApplet.at365/releases/download/v0.6.1/update.zip"
+  }
+}
